@@ -8,20 +8,36 @@ var vm = new Vue({
       email: "",
       password: "",
       phone: "",
+      confirmPassword: "",
     },
+    venueDetail: {
+      venueName: "",
+      streetNumber: "",
+      streetName: "",
+      town: "",
+      postcode: "",
+    },
+    error: "",
+    errors: [],
   },
   methods: {
     async onRegister() {
-      alert(this.venue_owner);
-      alert(this.registerURL);
+      console.log({ ...this.credentials, ...this.venueDetail });
+      const credentials = { ...this.credentials, ...this.venueDetail };
 
-      // try {
-      //   const res = await axios.post("/user/register", {});
-      //   console.log(res);
-      // } catch (err) {
-      //   console.log(err.response);
-      // }
-      //   alert("user registration");
+      try {
+        const res = await axios.post(this.registerURL, credentials);
+        window.location.href = "/login.html";
+      } catch (err) {
+        const { response } = err;
+        if (response.status === 422) {
+          this.error = "";
+          this.errors = response.data;
+        } else {
+          this.errors = [];
+          this.error = response.data.message;
+        }
+      }
     },
   },
   computed: {

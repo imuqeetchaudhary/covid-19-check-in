@@ -142,7 +142,7 @@ const update = (req, res) => {
         postcode: body.postcode
     }
 
-    models.VenueOwner.update(updateVenueOwner, { where: { email: body.email } })
+    models.VenueOwner.update(updateVenueOwner, { where: { id: req.user.id } })
         .then(result => {
             res.status(200).json({
                 message: "Updated Successfully",

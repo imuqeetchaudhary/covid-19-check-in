@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
 <body>
     <main id="app" class="centred">
-        <form class="pure-form pure-g centred details-form" action="/login.html" onsubmit="return register()">
+        <form class="pure-form pure-g centred details-form" action="/login.html" >
             <div class="pure-u-1">
                 <img class="centred" id="logo" src="/images/logo.png" alt="logo">
             </div>
@@ -33,27 +33,27 @@
             <div class="pure-u-1 pure-u-md-1-2">
                 <div class="grid-pad">
                     <label for="given-name">Given Name</label>
-                    <input id="given-name" name="given-name" type="text" class="full-width" required />
+                    <input id="given-name" name="given-name" type="text" class="full-width" required v-model="credentials.name" />
                 </div>
             </div>
             <div class="pure-u-1 pure-u-md-1-2">
                 <div class="grid-pad">
                     <label for="family-name">Family Name</label>
-                    <input id="family-name" name="family-name" type="text" class="full-width" required />
+                    <input id="family-name" name="family-name" type="text" class="full-width" required v-model="credentials.familyName" />
                 </div>
             </div>
 
             <div class="pure-u-1" >
                 <div class="grid-pad">
                      <label for="email">Email</label>
-                     <input id="email" name="email" type="email" class="full-width" required />
+                     <input id="email" name="email" type="email" class="full-width" required v-model="credentials.email" />
                  </div>
             </div>
 
             <div class="pure-u-1">
                 <div class="grid-pad">
                     <label for="phone">Phone</label>
-                    <input id="phone" name="phone" type="tel" class="full-width" required />
+                    <input id="phone" name="phone" type="tel" class="full-width" required v-model="credentials.phone" />
                 </div>
             </div>
 
@@ -64,14 +64,14 @@
             <div class="pure-u-1">
                 <div class="grid-pad">
                     <label for="password">New Password</label>
-                    <input id="password" name="password" type="password" class="full-width" required />
+                    <input id="password" name="password" type="password" class="full-width" required v-model="credentials.password" />
                 </div>
             </div>
 
             <div class="pure-u-1">
                 <div class="grid-pad">
                     <label for="password-confirm">Confirm Password</label>
-                    <input id="password-confirm" name="password-confirm" type="password" class="full-width" oninput="validatePassword()" required />
+                    <input id="password-confirm" name="password-confirm" v-model="credentials.confirmPassword" type="password" class="full-width" oninput="validatePassword()" required />
                 </div>
             </div>
 
@@ -94,48 +94,52 @@
             <div class="pure-u-1" v-if="venue_owner">
                 <div class="grid-pad">
                     <label for="venue-name">Venue Name</label>
-                    <input id="venue-name" name="venue-name" type="text" class="full-width" v-bind:required="venue_owner" />
+                    <input id="venue-name" name="venue-name" type="text" class="full-width" v-model="venueDetail.venueName" v-bind:required="venue_owner" />
                 </div>
             </div>
             <div class="pure-u-1 pure-u-md-1-4" v-if="venue_owner">
                 <div class="grid-pad">
                     <label for="street-no">Street Number</label>
-                    <input id="street-no" name="street-no" type="text" class="full-width" v-bind:required="venue_owner" />
+                    <input id="street-no" name="street-no" type="text" class="full-width" v-model="venueDetail.streetNumber" v-bind:required="venue_owner" />
                 </div>
             </div>
 
             <div class="pure-u-1 pure-u-md-3-4" v-if="venue_owner">
                 <div class="grid-pad">
                     <label for="street-name">Street Name</label>
-                    <input id="street-name" name="street-name" type="text" class="full-width" v-bind:required="venue_owner" />
+                    <input id="street-name" name="street-name" v-model="venueDetail.streetName" type="text" class="full-width" v-bind:required="venue_owner" />
                  </div>
             </div>
 
             <div class="pure-u-1 pure-u-md-1-2" v-if="venue_owner">
                 <div class="grid-pad">
                     <label for="city">Town/City</label>
-                    <input id="city" name="city" type="text" class="full-width" v-bind:required="venue_owner" />
+                    <input id="city" name="city" type="text" v-model="venueDetail.town" class="full-width" v-bind:required="venue_owner" />
                 </div>
             </div>
 
             <div class="pure-u-1 pure-u-md-1-2" v-if="venue_owner">
                 <div class="grid-pad">
                     <label for="postcode">Postcode</label>
-                    <input id="postcode" name="postcode" type="number" class="full-width" v-bind:required="venue_owner" />
+                    <input id="postcode" name="postcode" type="number" v-model="venueDetail.postcode" class="full-width" v-bind:required="venue_owner" />
                 </div>
             </div>
 
             <div class="pure-u-1">
                 <div class="grid-pad">
                     <button class="pure-button" type="button" onclick="back()">Back</button>
-                    <input type="submit" class="pure-button pure-button-primary right" value="Create Account" />
+                    <!-- <input type="submit" class="pure-button pure-button-primary right" value="Create Account" /> -->
+                    <button type="button" class="pure-button pure-button-primary right" @click="onRegister()">Create Account</button>
                 </div>
             </div>
 
-            <button type="button" @click="onRegister()">Register</button>
 
-            <div class="pure-u-1">
-                <h1>Username: {{ credentials.username}}</h1>
+            <div class="pure-u-1" v-if="error">
+                <p class="alert">{{ error }}</p>
+            </div>
+
+            <div class="pure-u-1" v-if="errors.length > 0">
+                <p class="alert" v-for="error in errors" :key="error">{{ error }}</p>
             </div>
 
 
