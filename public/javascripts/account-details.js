@@ -24,9 +24,14 @@ var vm = new Vue({
   methods: {
     async fetchUserProfile() {
       const headers = this.getHeaders();
+      let url = "/user/profile";
+
+      if (this.isOwner()) {
+        url = "/venue-owner/profile";
+      }
 
       try {
-        const res = await axios.get("/user/profile", { headers });
+        const res = await axios.get(url, { headers });
         this.user = { ...res.data };
         console.log(res);
       } catch (err) {
@@ -39,7 +44,7 @@ var vm = new Vue({
 
       try {
         const res = await axios.patch(
-          "/user/update",
+          this.getUpdateURL(),
           { ...this.user },
           { headers }
         );
@@ -52,6 +57,20 @@ var vm = new Vue({
       const { token } = JSON.parse(window.localStorage.getItem("user"));
       const headers = { authorization: token };
       return headers;
+    },
+    getUpdateURL() {
+      let url = "/user/update";
+
+      const { isOwner } = JSON.parse(window.localStorage.getItem("user"));
+      if (isOwner) {
+        url += "?isOwner=1";
+      }
+
+      return url;
+    },
+    isOwner() {
+      const { isOwner } = JSON.parse(window.localStorage.getItem("user"));
+      return isOwner;
     },
   },
 });

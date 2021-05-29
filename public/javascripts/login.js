@@ -15,7 +15,13 @@ var vm = new Vue({
         const res = await axios.post(this.loginURL, { ...this.credentials });
         this.errors = [];
         this.error = "";
-        window.localStorage.setItem("user", JSON.stringify(res.data));
+        let userData = res.data;
+        if (this.isOwner) {
+          userData.isOwner = true;
+        } else {
+          userData.isOwner = false;
+        }
+        window.localStorage.setItem("user", JSON.stringify(userData));
         console.log(res.data);
       } catch (err) {
         const { response } = err;
@@ -27,6 +33,8 @@ var vm = new Vue({
           this.errors = [];
           this.error = response.data.message;
         }
+
+        console.log(response);
       }
     },
   },

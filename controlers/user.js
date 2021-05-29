@@ -122,7 +122,20 @@ const update = (req, res) => {
     phone: body.phone,
   };
 
-  models.User.update({ ...updateUser }, { where: { id: req.user.userID } })
+  console.log("query param", req.query);
+
+  let model = models.User;
+  let id;
+
+  if (req.query && req.query.isOwner === "1") {
+    model = models.VenueOwner;
+    id = req.user.venueOwnerID;
+  } else {
+    id = req.user.id;
+  }
+
+  model
+    .update({ ...updateUser }, { where: { id } })
     .then((result) => {
       res.status(200).json({
         message: "Updated Successfully",
