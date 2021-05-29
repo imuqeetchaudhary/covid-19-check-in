@@ -11,6 +11,7 @@ var userDetails = {
   familyName: "",
   email: "",
   phone: "",
+  password: "",
 };
 
 var vm = new Vue({

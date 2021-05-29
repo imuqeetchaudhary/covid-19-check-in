@@ -113,14 +113,16 @@ const show = (req, res) => {
 const update = (req, res) => {
   const body = req.body;
 
-  const hash = bcrypt.hashSync(body.password ?? "", 10);
-
   const updateUser = {
     name: body.name,
-    password: hash,
     familyName: body.familyName,
     phone: body.phone,
   };
+
+  if (body.password) {
+    const hash = bcrypt.hashSync(body.password, 10);
+    updateUser.password = hash;
+  }
 
   console.log("query param", req.query);
 
@@ -131,7 +133,7 @@ const update = (req, res) => {
     model = models.VenueOwner;
     id = req.user.venueOwnerID;
   } else {
-    id = req.user.id;
+    id = req.user.userID;
   }
 
   model
@@ -143,6 +145,7 @@ const update = (req, res) => {
       });
     })
     .catch((error) => {
+      console.log("error", error);
       res.status(500).json({
         message: "Something went wrong",
         user: error,
