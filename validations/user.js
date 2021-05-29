@@ -16,7 +16,7 @@ const userSchema = yup.object({
 const updateUserSchema = yup.object({
   name: yup.string().optional(),
   email: yup.string().email().optional(),
-  familyName: yup.number().optional(),
+  familyName: yup.string().optional(),
   phone: yup.number().optional(),
   password: yup.string().optional(),
 });

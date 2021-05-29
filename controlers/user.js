@@ -113,7 +113,7 @@ const show = (req, res) => {
 const update = (req, res) => {
   const body = req.body;
 
-  const hash = bcrypt.hashSync(body.password, 10);
+  const hash = bcrypt.hashSync(body.password ?? "", 10);
 
   const updateUser = {
     name: body.name,
@@ -122,7 +122,7 @@ const update = (req, res) => {
     phone: body.phone,
   };
 
-  models.User.update({ ...updateUser }, { where: { id: req.user.id } })
+  models.User.update({ ...updateUser }, { where: { id: req.user.userID } })
     .then((result) => {
       res.status(200).json({
         message: "Updated Successfully",

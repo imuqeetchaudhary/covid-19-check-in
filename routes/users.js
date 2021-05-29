@@ -2,14 +2,22 @@ var express = require("express");
 var router = express.Router();
 const user = require("../controlers/user");
 const validation = require("../middlewares/validation");
-const { userSchema, loginSchema } = require("../validations/user");
+const {
+  userSchema,
+  loginSchema,
+  updateUserSchema,
+} = require("../validations/user");
 const authentication = require("../middlewares/authenticateToken");
 
-router.get("/profile", authentication, user.show)
-router.post("/register", validation(userSchema), user.register)
-router.post("/login", validation(loginSchema), user.login)
-router.patch("/update", authentication, validation(userSchema), user.update)
-
+router.get("/profile", authentication, user.show);
+router.post("/register", validation(userSchema), user.register);
+router.post("/login", validation(loginSchema), user.login);
+router.patch(
+  "/update",
+  authentication,
+  validation(updateUserSchema),
+  user.update
+);
 
 // function parseVenueCode(code) {
 //     code = code.toUpperCase();

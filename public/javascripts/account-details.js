@@ -7,10 +7,10 @@ function apply() {
 }
 
 var userDetails = {
-  name: "user",
-  familyName: "name",
-  email: "user@example.com",
-  phone: "+61987654321",
+  name: "",
+  familyName: "",
+  email: "",
+  phone: "",
 };
 
 var vm = new Vue({
@@ -23,8 +23,7 @@ var vm = new Vue({
   },
   methods: {
     async fetchUserProfile() {
-      const { token } = JSON.parse(window.localStorage.getItem("user"));
-      const headers = { authorization: token };
+      const headers = this.getHeaders();
 
       try {
         const res = await axios.get("/user/profile", { headers });
@@ -33,6 +32,26 @@ var vm = new Vue({
       } catch (err) {
         console.log(err.response);
       }
+    },
+    async onUpdateProfile() {
+      const headers = this.getHeaders();
+      console.log("user", this.user);
+
+      try {
+        const res = await axios.patch(
+          "/user/update",
+          { ...this.user },
+          { headers }
+        );
+        console.log(res);
+      } catch (err) {
+        console.log(err.response);
+      }
+    },
+    getHeaders() {
+      const { token } = JSON.parse(window.localStorage.getItem("user"));
+      const headers = { authorization: token };
+      return headers;
     },
   },
 });
