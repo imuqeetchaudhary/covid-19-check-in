@@ -8,20 +8,19 @@ var vm = new Vue({
       email: "",
       password: "",
       phone: "",
+      confirmPassword: "",
     },
   },
   methods: {
     async onRegister() {
-      alert(this.venue_owner);
-      alert(this.registerURL);
+      console.log(this.credentials);
 
-      // try {
-      //   const res = await axios.post("/user/register", {});
-      //   console.log(res);
-      // } catch (err) {
-      //   console.log(err.response);
-      // }
-      //   alert("user registration");
+      try {
+        const res = await axios.post("/user/register", { ...this.credentials });
+        console.log(res);
+      } catch (err) {
+        console.log(err.response);
+      }
     },
   },
   computed: {

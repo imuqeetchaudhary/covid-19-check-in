@@ -33,27 +33,27 @@
             <div class="pure-u-1 pure-u-md-1-2">
                 <div class="grid-pad">
                     <label for="given-name">Given Name</label>
-                    <input id="given-name" name="given-name" type="text" class="full-width" required />
+                    <input id="given-name" name="given-name" type="text" class="full-width" required v-model="credentials.name" />
                 </div>
             </div>
             <div class="pure-u-1 pure-u-md-1-2">
                 <div class="grid-pad">
                     <label for="family-name">Family Name</label>
-                    <input id="family-name" name="family-name" type="text" class="full-width" required />
+                    <input id="family-name" name="family-name" type="text" class="full-width" required v-model="credentials.familyName" />
                 </div>
             </div>
 
             <div class="pure-u-1" >
                 <div class="grid-pad">
                      <label for="email">Email</label>
-                     <input id="email" name="email" type="email" class="full-width" required />
+                     <input id="email" name="email" type="email" class="full-width" required v-model="credentials.email" />
                  </div>
             </div>
 
             <div class="pure-u-1">
                 <div class="grid-pad">
                     <label for="phone">Phone</label>
-                    <input id="phone" name="phone" type="tel" class="full-width" required />
+                    <input id="phone" name="phone" type="tel" class="full-width" required v-model="credentials.phone" />
                 </div>
             </div>
 
@@ -64,14 +64,14 @@
             <div class="pure-u-1">
                 <div class="grid-pad">
                     <label for="password">New Password</label>
-                    <input id="password" name="password" type="password" class="full-width" required />
+                    <input id="password" name="password" type="password" class="full-width" required v-model="credentials.password" />
                 </div>
             </div>
 
             <div class="pure-u-1">
                 <div class="grid-pad">
                     <label for="password-confirm">Confirm Password</label>
-                    <input id="password-confirm" name="password-confirm" type="password" class="full-width" oninput="validatePassword()" required />
+                    <input id="password-confirm" name="password-confirm" v-model="credentials.confirmPassword" type="password" class="full-width" oninput="validatePassword()" required />
                 </div>
             </div>
 
