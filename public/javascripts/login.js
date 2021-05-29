@@ -23,6 +23,7 @@ var vm = new Vue({
         }
         window.localStorage.setItem("user", JSON.stringify(userData));
         console.log(res.data);
+        window.location.href = "/user/account-details.html";
       } catch (err) {
         const { response } = err;
 
