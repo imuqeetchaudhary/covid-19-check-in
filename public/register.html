@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
 <body>
     <main id="app" class="centred">
-        <form class="pure-form pure-g centred details-form" action="/login.html" onsubmit="return register()">
+        <form class="pure-form pure-g centred details-form" action="/login.html" >
             <div class="pure-u-1">
                 <img class="centred" id="logo" src="/images/logo.png" alt="logo">
             </div>
@@ -128,14 +128,18 @@
             <div class="pure-u-1">
                 <div class="grid-pad">
                     <button class="pure-button" type="button" onclick="back()">Back</button>
-                    <input type="submit" class="pure-button pure-button-primary right" value="Create Account" />
+                    <!-- <input type="submit" class="pure-button pure-button-primary right" value="Create Account" /> -->
+                    <button type="button" class="pure-button pure-button-primary right" @click="onRegister()">Create Account</button>
                 </div>
             </div>
 
-            <button type="button" @click="onRegister()">Register</button>
 
-            <div class="pure-u-1">
-                <h1>Username: {{ credentials.username}}</h1>
+            <div class="pure-u-1" v-if="error">
+                <p class="alert">{{ error }}</p>
+            </div>
+
+            <div class="pure-u-1" v-if="errors.length > 0">
+                <p class="alert" v-for="error in errors" :key="error">{{ error }}</p>
             </div>
 
 

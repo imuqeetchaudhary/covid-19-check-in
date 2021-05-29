@@ -17,6 +17,8 @@ var vm = new Vue({
       town: "",
       postcode: "",
     },
+    error: "",
+    errors: [],
   },
   methods: {
     async onRegister() {
@@ -27,7 +29,14 @@ var vm = new Vue({
         const res = await axios.post(this.registerURL, credentials);
         console.log(res);
       } catch (err) {
-        console.log(err.response);
+        const { response } = err;
+        if (response.status === 422) {
+          this.error = "";
+          this.errors = response.data;
+        } else {
+          this.errors = [];
+          this.error = response.data.message;
+        }
       }
     },
   },
