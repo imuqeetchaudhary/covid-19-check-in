@@ -3,7 +3,7 @@ var vm = new Vue({
   data: {
     venue_owner: false,
     credentials: {
-      name: "Jazim Abbas",
+      name: "",
       familyName: "",
       email: "",
       password: "",

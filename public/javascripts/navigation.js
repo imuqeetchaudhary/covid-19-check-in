@@ -1,18 +1,32 @@
 // Read cookies to get the user's account type:
 var userCookie = decodeURIComponent(document.cookie);
-var cookieParts = userCookie.split(';');
+var cookieParts = userCookie.split(";");
 var cookieKey = "userType=";
 var userType;
 
+function isVenueOwner() {
+  var { isOwner } = JSON.parse(localStorage.getItem("user"));
+
+  return isOwner;
+}
+
+function isHealthOfficer() {
+  var { isHealthOffice } = JSON.parse(localStorage.getItem("user"));
+
+  return isHealthOffice;
+}
+
+// isVenueOwner();
+
 for (let part of cookieParts) {
-    part = part.trim();
-    if (part.indexOf(cookieKey) == 0) {
-        userType = part.substring(cookieKey.length, part.length);
-    }
+  part = part.trim();
+  if (part.indexOf(cookieKey) == 0) {
+    userType = part.substring(cookieKey.length, part.length);
+  }
 }
 
 // Display different navigation links, depending on the user type:
-var nav = document.getElementsByTagName('nav')[0];
+var nav = document.getElementsByTagName("nav")[0];
 let navContent = `<ul class="pure-menu-list">
                     <li class="pure-menu-item">
                         <a href="/user/index.html" class="pure-menu-link"><i class="fas fa-chart-line"></i><br />Dashboard</a>
@@ -33,9 +47,8 @@ let navContent = `<ul class="pure-menu-list">
                         <a href="/user/settings.html" class="pure-menu-link"><i class="fas fa-cog"></i><br />Settings</a>
                     </li>`;
 
-
-if (userType == "venue-owner") {
-    navContent += `<li class="pure-menu-item">
+if (isVenueOwner()) {
+  navContent += `<li class="pure-menu-item">
         <a href="/manager/venue-check-in-history.html" class="pure-menu-link"><i class="fas fa-notes-medical"></i><br />Venue Check-in<br>History</a>
     </li>
      <li class="pure-menu-item">
@@ -46,8 +59,8 @@ if (userType == "venue-owner") {
     </li>`;
 }
 
-if (userType == "health-official") {
-    navContent += `<li class="pure-menu-item">
+if (isHealthOfficer()) {
+  navContent += `<li class="pure-menu-item">
         <a href="/admin/manage-users.html" class="pure-menu-link"><i class="far fa-address-book"></i><br />Manage Users</a>
     </li>
     <li class="pure-menu-item">
@@ -67,25 +80,25 @@ navContent += `</ul>`;
 nav.innerHTML = navContent;
 
 for (let page of nav.children[0].children) {
-    if (window.location.href == page.children[0].href) {
-        page.children[0].classList.add('current-page');
-    }
+  if (window.location.href == page.children[0].href) {
+    page.children[0].classList.add("current-page");
+  }
 }
 
 // Set the nav menu visibility, depending on whether the page is viewed on a mobile or desktop:
 var navHidden = false;
 
 function navVisibility() {
-    let hideNav = window.matchMedia("(max-width: 768px)").matches;
-    if (navHidden != hideNav) {
-        navHidden = hideNav;
+  let hideNav = window.matchMedia("(max-width: 768px)").matches;
+  if (navHidden != hideNav) {
+    navHidden = hideNav;
 
-        if (navHidden) {
-            nav.hidden = true;
-        } else {
-            nav.hidden = false;
-        }
+    if (navHidden) {
+      nav.hidden = true;
+    } else {
+      nav.hidden = false;
     }
+  }
 }
 
 navVisibility();
