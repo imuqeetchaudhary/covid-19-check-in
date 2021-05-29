@@ -1,14 +1,14 @@
-var express = require('express');
-var router = express.Router(); 
-const user = require("../controlers/user")
-const validation = require("../middlewares/validation")
-const userSchema = require("../validations/user")
-const authentication = require("../middlewares/authenticateToken")
+var express = require("express");
+var router = express.Router();
+const user = require("../controlers/user");
+const validation = require("../middlewares/validation");
+const { userSchema, loginSchema } = require("../validations/user");
+const authentication = require("../middlewares/authenticateToken");
 
-router.post("/register", validation(userSchema), user.register)
-router.post("/login", validation(userSchema), user.login)
-router.patch("/update", authentication, validation(userSchema), user.update)
-router.get("/", authentication, user.show)
+router.post("/register", validation(userSchema), user.register);
+router.post("/login", validation(loginSchema), user.login);
+router.patch("/update", authentication, validation(userSchema), user.update);
+router.get("/", authentication, user.show);
 
 // function parseVenueCode(code) {
 //     code = code.toUpperCase();
