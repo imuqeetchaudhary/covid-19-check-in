@@ -1,8 +1,9 @@
 var vm = new Vue({
   el: "#login-app",
   data: {
+    isOwner: false,
     credentials: {
-      email: "jazimabbas@gmail.com",
+      email: "",
       password: "",
     },
     error: "",
@@ -11,7 +12,9 @@ var vm = new Vue({
   methods: {
     async onLogin() {
       try {
-        const res = await axios.post("/user/login", { ...this.credentials });
+        const res = await axios.post(this.loginURL, { ...this.credentials });
+        this.errors = [];
+        this.error = "";
         console.log(res);
       } catch (err) {
         const { response } = err;
@@ -24,6 +27,11 @@ var vm = new Vue({
           this.error = response.data.message;
         }
       }
+    },
+  },
+  computed: {
+    loginURL() {
+      return this.isOwner ? "/venue-owner/login" : "/user/login";
     },
   },
 });
