@@ -15,7 +15,8 @@ var vm = new Vue({
         const res = await axios.post(this.loginURL, { ...this.credentials });
         this.errors = [];
         this.error = "";
-        console.log(res);
+        window.localStorage.setItem("user", JSON.stringify(res.data));
+        console.log(res.data);
       } catch (err) {
         const { response } = err;
 

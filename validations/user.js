@@ -13,7 +13,16 @@ const userSchema = yup.object({
   phone: yup.number(),
 });
 
+const updateUserSchema = yup.object({
+  name: yup.string().optional(),
+  email: yup.string().email().optional(),
+  familyName: yup.number().optional(),
+  phone: yup.number().optional(),
+  password: yup.string().optional(),
+});
+
 module.exports = {
   userSchema,
   loginSchema,
+  updateUserSchema,
 };
