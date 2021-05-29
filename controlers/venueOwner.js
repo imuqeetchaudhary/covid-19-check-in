@@ -96,10 +96,20 @@ const login = (req, res) => {
 }
 
 const show = (req, res) => {
-    models.VenueOwner.findAll()
+    models.VenueOwner.findOne({ where: { email: req.body.email } })
         .then(result => {
             if (result) {
-                res.json(result)
+                res.status(200).json({
+                    name: result.name,
+                    email: result.email,
+                    familyName: result.familyName,
+                    phone: result.phone,
+                    venueName: result.venueName,
+                    streetNumber: result.streetNumber,
+                    streetName: result.streetName,
+                    town: result.town,
+                    postcode: result.postcode
+                })
             }
             else {
                 res.status(404).json({

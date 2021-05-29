@@ -91,10 +91,15 @@ const login = (req, res) => {
 }
 
 const show = (req, res) => {
-    models.HealthOfficial.findAll()
+    models.HealthOfficial.findOne({ where: { email: req.body.email } })
         .then(result => {
             if (result) {
-                res.json(result)
+                res.status(200).json({
+                    name: result.name,
+                    email: result.email,
+                    familyName: result.familyName,
+                    phone: result.phone
+                })
             }
             else {
                 res.status(404).json({

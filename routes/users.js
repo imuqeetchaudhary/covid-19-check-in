@@ -5,10 +5,10 @@ const validation = require("../middlewares/validation")
 const userSchema = require("../validations/user")
 const authentication = require("../middlewares/authenticateToken")
 
+router.get("/profile", authentication, user.show)
 router.post("/register", validation(userSchema), user.register)
 router.post("/login", validation(userSchema), user.login)
 router.patch("/update", authentication, validation(userSchema), user.update)
-router.get("/", authentication, user.show)
 
 // function parseVenueCode(code) {
 //     code = code.toUpperCase();

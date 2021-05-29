@@ -8,6 +8,6 @@ const authentication = require("../middlewares/authenticateToken")
 router.post("/register", validation(venueOwnerSchema), venueOwner.register)
 router.post("/login", validation(venueOwnerSchema), venueOwner.login)
 router.patch("/update", authentication, validation(venueOwnerSchema), venueOwner.update)
-router.get("/", authentication, venueOwner.show)
+router.get("/profile", authentication, venueOwner.show)
 
 module.exports = router;
