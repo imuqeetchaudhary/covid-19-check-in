@@ -7,7 +7,7 @@ const env = require("dotenv").config()
 const register = (req, res) => {
     const body = req.body
     const hash = bcrypt.hashSync(body.password, 10);
-
+    
     models.User.findOne({ where: { email: body.email } })
         .then(result => {
             if (result) {
@@ -123,7 +123,7 @@ const update = (req, res) => {
         phone: body.phone
     }
 
-    models.User.update(updateUser, { where: { email: body.email } })
+    models.User.update(updateUser, { where: { id: req.user.id } })
         .then(result => {
             res.status(200).json({
                 message: "Updated Successfully",
