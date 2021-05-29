@@ -27,6 +27,21 @@ var vm = new Vue({
         console.log(response);
       }
     },
+    async onUpdateProfile() {
+      const headers = this.getHeaders();
+
+      try {
+        const res = await axios.patch(
+          "/venue-owner/update",
+          { ...this.venue },
+          { headers }
+        );
+        console.log(res);
+      } catch (err) {
+        const { response } = err;
+        console.log(response);
+      }
+    },
     getHeaders() {
       const { token } = JSON.parse(window.localStorage.getItem("user"));
       const headers = { authorization: token };

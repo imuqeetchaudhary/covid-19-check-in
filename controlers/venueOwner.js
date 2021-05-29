@@ -125,8 +125,6 @@ const show = (req, res) => {
 const update = (req, res) => {
   const body = req.body;
 
-  const hash = bcrypt.hashSync(body.password, 10);
-
   const updateVenueOwner = {
     venueName: body.venueName,
     streetNumber: body.streetNumber,
