@@ -128,10 +128,6 @@ const update = (req, res) => {
   const hash = bcrypt.hashSync(body.password, 10);
 
   const updateVenueOwner = {
-    name: body.name,
-    password: hash,
-    familyName: body.familyName,
-    phone: body.phone,
     venueName: body.venueName,
     streetNumber: body.streetNumber,
     streetName: body.streetName,
@@ -139,7 +135,10 @@ const update = (req, res) => {
     postcode: body.postcode,
   };
 
-  models.VenueOwner.update(updateVenueOwner, { where: { id: req.user.id } })
+  models.VenueOwner.update(
+    { ...updateVenueOwner },
+    { where: { id: req.user.venueOwnerID } }
+  )
     .then((result) => {
       res.status(200).json({
         message: "Updated Successfully",
