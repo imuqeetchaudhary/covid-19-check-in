@@ -10,13 +10,21 @@ var vm = new Vue({
       phone: "",
       confirmPassword: "",
     },
+    venueDetail: {
+      venueName: "",
+      streetNumber: "",
+      streetName: "",
+      town: "",
+      postcode: "",
+    },
   },
   methods: {
     async onRegister() {
-      console.log(this.credentials);
+      console.log({ ...this.credentials, ...this.venueDetail });
+      const credentials = { ...this.credentials, ...this.venueDetail };
 
       try {
-        const res = await axios.post("/user/register", { ...this.credentials });
+        const res = await axios.post(this.registerURL, credentials);
         console.log(res);
       } catch (err) {
         console.log(err.response);

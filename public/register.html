@@ -94,34 +94,34 @@
             <div class="pure-u-1" v-if="venue_owner">
                 <div class="grid-pad">
                     <label for="venue-name">Venue Name</label>
-                    <input id="venue-name" name="venue-name" type="text" class="full-width" v-bind:required="venue_owner" />
+                    <input id="venue-name" name="venue-name" type="text" class="full-width" v-model="venueDetail.venueName" v-bind:required="venue_owner" />
                 </div>
             </div>
             <div class="pure-u-1 pure-u-md-1-4" v-if="venue_owner">
                 <div class="grid-pad">
                     <label for="street-no">Street Number</label>
-                    <input id="street-no" name="street-no" type="text" class="full-width" v-bind:required="venue_owner" />
+                    <input id="street-no" name="street-no" type="text" class="full-width" v-model="venueDetail.streetNumber" v-bind:required="venue_owner" />
                 </div>
             </div>
 
             <div class="pure-u-1 pure-u-md-3-4" v-if="venue_owner">
                 <div class="grid-pad">
                     <label for="street-name">Street Name</label>
-                    <input id="street-name" name="street-name" type="text" class="full-width" v-bind:required="venue_owner" />
+                    <input id="street-name" name="street-name" v-model="venueDetail.streetName" type="text" class="full-width" v-bind:required="venue_owner" />
                  </div>
             </div>
 
             <div class="pure-u-1 pure-u-md-1-2" v-if="venue_owner">
                 <div class="grid-pad">
                     <label for="city">Town/City</label>
-                    <input id="city" name="city" type="text" class="full-width" v-bind:required="venue_owner" />
+                    <input id="city" name="city" type="text" v-model="venueDetail.town" class="full-width" v-bind:required="venue_owner" />
                 </div>
             </div>
 
             <div class="pure-u-1 pure-u-md-1-2" v-if="venue_owner">
                 <div class="grid-pad">
                     <label for="postcode">Postcode</label>
-                    <input id="postcode" name="postcode" type="number" class="full-width" v-bind:required="venue_owner" />
+                    <input id="postcode" name="postcode" type="number" v-model="venueDetail.postcode" class="full-width" v-bind:required="venue_owner" />
                 </div>
             </div>
 
