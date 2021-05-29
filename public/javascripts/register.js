@@ -27,7 +27,7 @@ var vm = new Vue({
 
       try {
         const res = await axios.post(this.registerURL, credentials);
-        console.log(res);
+        window.location.href = "/login.html";
       } catch (err) {
         const { response } = err;
         if (response.status === 422) {
